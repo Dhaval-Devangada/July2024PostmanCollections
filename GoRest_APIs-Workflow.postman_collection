@@ -1,0 +1,278 @@
+{
+	"info": {
+		"_postman_id": "b57e1ec5-6897-47c5-969b-aa9a3165d8de",
+		"name": "GoRest APIs-Workflow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37058773"
+	},
+	"item": [
+		{
+			"name": "1-CreateAUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json(); //JS object\r",
+							"\r",
+							"const userId = response.id; //fetch the id\r",
+							"\r",
+							"console.log(`My userId is : ${userId}`)\r",
+							"\r",
+							"//set the id to common location \r",
+							"//L,D,E,C,G\r",
+							"//set userId at local variable \r",
+							"//pm.variables.set(\"user_id\",userId)\r",
+							"\r",
+							"pm.variables.set(\"user_id\",response.id)\r",
+							"\r",
+							"pm.test(\"Status code should be 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenID}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{$randomFullName}}\", //this random name\r\n    \"email\": \"infosys_{{$randomEmail}}\", //this is random emial id \r\n    \"gender\": \"male\",\r\n    \"status\": \"inactive\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}public/v2/users",
+					"host": [
+						"{{baseURL}}public"
+					],
+					"path": [
+						"v2",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2-GetAUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code should be 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenID}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}public/v2/users/{{user_id}}",
+					"host": [
+						"{{baseURL}}public"
+					],
+					"path": [
+						"v2",
+						"users",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3-Update A User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code should be 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenID}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": \"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}public/v2/users/{{user_id}}",
+					"host": [
+						"{{baseURL}}public"
+					],
+					"path": [
+						"v2",
+						"users",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4-Delete A User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code should be 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenID}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}public/v2/users/{{user_id}}",
+					"host": [
+						"{{baseURL}}public"
+					],
+					"path": [
+						"v2",
+						"users",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5-Get A User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code should be 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenID}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}public/v2/users/{{user_id}}",
+					"host": [
+						"{{baseURL}}public"
+					],
+					"path": [
+						"v2",
+						"users",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.test(\"Response time is less than 5000ms\", function () {\r",
+					"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "tokenID",
+			"value": "{{vault:goRest-tokenID}}",
+			"type": "string"
+		}
+	]
+}

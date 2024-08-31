@@ -1,0 +1,32 @@
+{
+	"info": {
+		"_postman_id": "b9bb3ed0-0af6-4fcd-bf49-0b08e135d081",
+		"name": "JenkinsCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37058773"
+	},
+	"item": [
+		{
+			"name": "GetAllUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
